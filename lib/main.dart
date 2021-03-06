@@ -10,7 +10,7 @@ import 'package:xplain/views/gamePlay/GameScreen.dart';
 
 import 'views/gamecreator/GameCreatorScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -93,109 +93,114 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ]),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          TextField(
-                            autofocus: false,
-                            style: TextStyle(fontSize: 30),
-                            decoration: new InputDecoration(
-                                border: new OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(
-                                    const Radius.circular(50.0),
-                                  ),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                hintStyle: new TextStyle(
-                                    color: MyColors.topGradient,
-                                    fontFamily: 'Hand'),
-                                hintText: "Game code",
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                fillColor: MyColors.yellow),
-                            controller: code,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            autofocus: false,
-                            style: TextStyle(fontSize: 30),
-                            decoration: new InputDecoration(
-                                border: new OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(
-                                    const Radius.circular(50.0),
-                                  ),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                hintStyle: new TextStyle(
-                                    color: MyColors.topGradient,
-                                    fontFamily: 'Hand'),
-                                hintText: "your name",
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                fillColor: MyColors.yellow),
-                            controller: name,
-                          ),
-                        ],
+                ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxWidth: 500,
                       ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        child: GestureDetector(
-                          onTap: () async {
-                            if (name.text!=null && name.text.trim()!="") {
-                              if (code.text!=null && code.text.trim()!="") {
-                                gameProvider.startLooking();
-                                String gameExsists = await gameProvider.getGame(code.text,name.text);
-                                gameProvider.stopLooking();
-                                if (gameExsists != "-1") {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            GameScreen(gameExsists)),
-                                  );
-                                } else {
-                                  Scaffold.of(context).showSnackBar(
-                                      SnackBar(content: Text("wrong code")));
+                                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              TextField(
+                                autofocus: false,
+                                style: TextStyle(fontSize: 30),
+                                decoration: new InputDecoration(
+                                    border: new OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                        const Radius.circular(50.0),
+                                      ),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    filled: true,
+                                    hintStyle: new TextStyle(
+                                        color: MyColors.topGradient,
+                                        fontFamily: 'Hand'),
+                                    hintText: "Game code",
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 8),
+                                    fillColor: MyColors.yellow),
+                                controller: code,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextField(
+                                autofocus: false,
+                                style: TextStyle(fontSize: 30),
+                                decoration: new InputDecoration(
+                                    border: new OutlineInputBorder(
+                                      borderRadius: const BorderRadius.all(
+                                        const Radius.circular(50.0),
+                                      ),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    filled: true,
+                                    hintStyle: new TextStyle(
+                                        color: MyColors.topGradient,
+                                        fontFamily: 'Hand'),
+                                    hintText: "your name",
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 8),
+                                    fillColor: MyColors.yellow),
+                                controller: name,
+                              ),
+                            ],
+                          ),
+                        ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          child: GestureDetector(
+                            onTap: () async {
+                              if (name.text!=null && name.text.trim()!="") {
+                                if (code.text!=null && code.text.trim()!="") {
+                                  gameProvider.startLooking();
+                                  String gameExsists = await gameProvider.getGame(code.text,name.text);
+                                  gameProvider.stopLooking();
+                                  if (gameExsists != "-1") {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              GameScreen(gameExsists)),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text("wrong code")));
+                                  }
+                                }
+                                else{
+                                     ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("No code?!")));
                                 }
                               }
                               else{
-                                   Scaffold.of(context).showSnackBar(
-                                    SnackBar(content: Text("No code?!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("No name?!")));
                               }
-                            }
-                            else{
-                                Scaffold.of(context).showSnackBar(
-                                    SnackBar(content: Text("No name?!")));
-                            }
-                          },
-                          child: SizedBox(
-                            height: 60,
-                            width: 60,
-                            child: FlareActor("assets/loadingTri.flr",
-                                alignment: Alignment.center,
-                                fit: BoxFit.contain,
-                                animation: gameProvider.lookingForGame
-                                    ? "loading"
-                                    : "idle"),
+                            },
+                            child: SizedBox(
+                              height: 60,
+                              width: 60,
+                              child: FlareActor("assets/loadingTri.flr",
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.contain,
+                                  animation: gameProvider.lookingForGame
+                                      ? "loading"
+                                      : "idle"),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
                 Container(),
-                FlatButton(
+             if(!kIsWeb) TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,

@@ -41,7 +41,7 @@ class CodesBottomScreen extends StatelessWidget {
                               SnackBar(content: Text(game.creatorCode+' copied to clipboard!'), behavior: SnackBarBehavior.floating,);
 
 // Find the Scaffold in the widget tree and use it to show a SnackBar.
-                         _scaffoldKey.currentState.showSnackBar(snackBar);
+                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                         )
                   ],
@@ -71,7 +71,7 @@ class CodesBottomScreen extends StatelessWidget {
                               SnackBar(content: Text( game.gameEnterCode+' copied to clipboard!'), behavior: SnackBarBehavior.floating,);
 
 // Find the Scaffold in the widget tree and use it to show a SnackBar.
-                         _scaffoldKey.currentState.showSnackBar(snackBar);
+                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                         )
                   ],

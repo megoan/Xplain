@@ -54,7 +54,7 @@ class CodeScreen extends StatelessWidget {
                             SnackBar(content: Text(game.creatorCode+' copied to clipboard!'));
 
 // Find the Scaffold in the widget tree and use it to show a SnackBar.
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                       )
                 ],
@@ -84,7 +84,7 @@ class CodeScreen extends StatelessWidget {
                             SnackBar(content: Text( game.gameEnterCode+' copied to clipboard!'));
 
 // Find the Scaffold in the widget tree and use it to show a SnackBar.
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                       )
                 ],
@@ -92,13 +92,8 @@ class CodeScreen extends StatelessWidget {
             ],
           ),
           SizedBox(),
-          RaisedButton(
-            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 5),
-            elevation: 2,
-            color: MyColors.topGradient,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                side: BorderSide(color: MyColors.yellow, width: 3),),
+          ElevatedButton(
+          
             onPressed: () {},
             child: Text(
               "Play",

@@ -37,7 +37,7 @@ class _AddQuestionState extends State<AddQuestion> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
-        resizeToAvoidBottomPadding: true,
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -173,18 +173,12 @@ class _AddQuestionState extends State<AddQuestion> {
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: RaisedButton(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        side: BorderSide(color: MyColors.yellow, width: 3),
-                      ),
-                      color: MyColors.topGradient,
+                  child: ElevatedButton(
+                     
                       onPressed: () {
                         if (questionText.text == null ||
                             questionText.text.trim() == "") {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Question! Question!"),
                             behavior: SnackBarBehavior.floating,
                           ));

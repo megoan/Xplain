@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xplain/viewModels/gameHistoryProvider.dart';
 import 'package:xplain/views/gamecreator/gameHistoryCard.dart';
-
 import '../../myColors.dart';
 
 class GamesHistoryScreen extends StatelessWidget {
@@ -58,7 +57,7 @@ class GamesHistoryScreen extends StatelessWidget {
                         },
                         itemCount:rev.length,
                         itemBuilder: (context, index) {
-                    return GameHistoryCard(rev[index],_scaffoldKey);
+                    return GameHistoryCard(rev[index]);
                   }));
                 }
                 return Container();

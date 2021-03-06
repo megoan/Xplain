@@ -98,11 +98,7 @@ class _GameCreatorState extends State<GameCreator> {
                     "Questions:",
                     style: TextStyle(fontSize: 30, color: Colors.white, fontFamily: 'Hand'),
                   ),
-                  RaisedButton(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    elevation: 0,
-                    color: Colors.transparent,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0), side: BorderSide(color: MyColors.yellow, width: 3)),
+                  ElevatedButton(
                     onPressed: () {
                       FocusScope.of(context).requestFocus(new FocusNode());
                       startGame(questionProvider, gameHistoryProvider, _scaffoldKey);
@@ -144,7 +140,7 @@ class _GameCreatorState extends State<GameCreator> {
                         onDismissed: (direction) {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           questionProvider.removeQuestion(questionProvider.questions[index].id);
-                          Scaffold.of(context).showSnackBar(SnackBar(content: Text("question ${index + 1} deleted")));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("question ${index + 1} deleted")));
                         },
                         child: QuestionCard(
                           questionProvider.questions[index],
@@ -180,7 +176,7 @@ class _GameCreatorState extends State<GameCreator> {
               },
             );
           } else {
-            _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("up to 30 questions!")));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("up to 30 questions!")));
           }
         },
         child: Icon(
@@ -193,17 +189,17 @@ class _GameCreatorState extends State<GameCreator> {
 
   void startGame(QuestionProvider questionProvider, GameHistoryProvider gameHistoryProvider, GlobalKey<ScaffoldState> key) async {
     if (gameName.text == null || gameName.text.trim() == "") {
-      key.currentState.showSnackBar(SnackBar(content: Text("No name No Game!")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("No name No Game!")));
       return;
     } else if (questionProvider.questions.length == 0) {
-      key.currentState.showSnackBar(SnackBar(content: Text("What's a game without Questions?")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("What's a game without Questions?")));
       return;
     } else if (questionProvider.questions.length > 30) {
-      key.currentState.showSnackBar(SnackBar(content: Text("up to 30 questions!")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("up to 30 questions!")));
     }
     bool cancreategame = await questionProvider.canCreateGame();
     if (!cancreategame) {
-      key.currentState.showSnackBar(SnackBar(content: Text("Only 5 games a day!")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Only 5 games a day!")));
       return;
     }
     showDialog(
@@ -249,7 +245,7 @@ class _GameCreatorState extends State<GameCreator> {
                         Row(
                           children: [
                             if (!startloading)
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {
                                   FocusScope.of(context).requestFocus(new FocusNode());
                                   Navigator.pop(context);
@@ -261,7 +257,7 @@ class _GameCreatorState extends State<GameCreator> {
                               ),
                             Spacer(),
                             if (!startloading)
-                              FlatButton(
+                              TextButton(
                                 onPressed: () async {
                                   FocusScope.of(context).requestFocus(new FocusNode());
                                   if (ref != null) {

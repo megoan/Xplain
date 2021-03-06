@@ -9,8 +9,7 @@ import 'codesBottomScreen.dart';
 
 class GameHistoryCard extends StatelessWidget {
   final GameHistory gameHistory;
-  final _scaffoldKey;
-  GameHistoryCard(this.gameHistory, this._scaffoldKey);
+  GameHistoryCard(this.gameHistory);
   String getTimeAsString(DateTime date) {
     if (QuestionProvider.isSameDate(DateTime.now(), date)) {
       //get time
@@ -51,7 +50,7 @@ class GameHistoryCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FlatButton.icon(
+                TextButton.icon(
                   onPressed: () {
                     gameProvider.getGameByID(gameHistory.gameID).then((game) {
                       if (game != null) {
@@ -65,7 +64,7 @@ class GameHistoryCard extends StatelessWidget {
                               return CodesBottomScreen(game);
                             });
                       } else {
-                        _scaffoldKey.currentState.showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text("Game is no more..."),
                           ),
