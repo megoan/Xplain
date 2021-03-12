@@ -92,15 +92,14 @@ class CodeScreen extends StatelessWidget {
             ],
           ),
           SizedBox(),
-          ElevatedButton(
-          
-            onPressed: () {},
-            child: Text(
-              "Play",
-              style: TextStyle(
-                  fontSize: 31, color: MyColors.yellow, fontFamily: 'Hobo'),
-            ),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {},
+          //   child: Text(
+          //     "Play",
+          //     style: TextStyle(
+          //         fontSize: 31, color: MyColors.yellow, fontFamily: 'Hobo'),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -158,16 +158,6 @@ class _AddQuestionState extends State<AddQuestion> {
                     ),
                   ],
                 ),
-
-                // ToggleButtons(
-                //   children: [Text("yes"), Text("no")],
-                //   isSelected: selected,
-                //   onPressed: (index) {
-                //     setState(() {
-                //       selected[index] = !selected[index];
-                //     });
-                //   },
-                // ),
                 SizedBox(
                   height: 20,
                 ),
